@@ -9,10 +9,12 @@ class Channel(models.Model):
     def __str__(self):
         return self.title
 
+# Set Channel as null=true because content should remain even if channel is deleted
 class Content(models.Model):
     name = models.CharField(max_length=120, null=False, blank=False)
     content = models.ImageField(upload_to='content/')
     rating = models.DecimalField(max_digits=3, decimal_places=1, null=False, blank=False)
+    channel = models.ForeignKey(Channel, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
